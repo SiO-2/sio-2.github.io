@@ -32,11 +32,11 @@
       institution: Huawei 2012 Laboratories
       year: 2024.09 ~ 2025.08
       description:
-        - Topic: Privacy-Preserving LLM Inference in Untrusted Clouds
-        - Gap Analysis: Identified critical privacy leaks in cloud inference due to vulnerable externalized KV-caches.
-        - Vulnerability Analysis: Analyzed reconstruction risks, providing the \textbf{first empirical evidence} of prompt leakage in Llama/Qwen architectures without raw input access.
-        - System Design (KV-Cloak): Architected a lightweight obfuscation defense natively integrated with \textbf{PagedAttention}, mitigating privacy risks while ensuring lossless accuracy with \textbf{$<$1\% latency overhead}.
-        - Impact: Core algorithms were integrated into \textbf{large-scale production inference frameworks}; yielded 1 top-tier paper and 1 patent.
+        - title: Privacy-Preserving LLM Inference in Untrusted Clouds
+        - Identified critical privacy leaks in cloud inference due to vulnerable externalized KV-caches.
+        - Analyzed reconstruction risks, providing the first empirical evidence of prompt leakage in Llama/Qwen architectures without raw input access.
+        - Architected a lightweight obfuscation defense natively integrated with PagedAttention, mitigating privacy risks while ensuring lossless accuracy with < 1% latency overhead.
+        - Core algorithms were integrated into large-scale production inference frameworks; yielded 1 top-tier paper and 1 patent.
 
 - title: Other Interests
   type: list
