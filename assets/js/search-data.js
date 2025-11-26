@@ -30,10 +30,7 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "news-a-simple-inline-announcement",
-          title: 'A simple inline announcement.',
-          description: "",
-          section: "News",},{id: "news-a-long-announcement-with-details",
+        },{id: "news-a-long-announcement-with-details",
           title: 'A long announcement with details',
           description: "",
           section: "News",handler: () => {
@@ -41,7 +38,12 @@ ninja.data = [{
             },},{id: "news-a-simple-inline-announcement-with-markdown-emoji-sparkles-smile",
           title: 'A simple inline announcement with Markdown emoji! :sparkles: :smile:',
           description: "",
-          section: "News",},{
+          section: "News",},{id: "news-announcement-1",
+          title: 'Announcement_1',
+          description: "",
+          section: "News",handler: () => {
+              window.location.href = "/news/announcement_1.html";
+            },},{
         id: 'social-cv',
         title: 'CV',
         section: 'Socials',
