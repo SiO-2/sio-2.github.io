@@ -2,7 +2,6 @@
 layout: about
 title: About
 permalink: /
-subtitle: <a href='https://www.zju.edu.cn/english/'>Zhejiang University</a>. 
 
 profile:
   align: right
