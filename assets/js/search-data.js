@@ -56,11 +56,11 @@ ninja.data = [{
           window.open("mailto:%6C%75%6F%7A%68%69%66%61%6E@%7A%6A%75.%65%64%75.%63%6E", "_blank");
         },
       },{
-        id: 'social-gitlab',
-        title: 'GitLab',
+        id: 'social-github',
+        title: 'GitHub',
         section: 'Socials',
         handler: () => {
-          window.open("https://gitlab.com/SiO-2", "_blank");
+          window.open("https://github.com/SiO-2", "_blank");
         },
       },{
         id: 'social-orcid',
