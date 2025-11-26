@@ -1,17 +1,13 @@
 ---
 layout: about
-title: about
+title: About
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Motto. Etc.
+subtitle: <a href='https://www.zju.edu.cn/english/'>Zhejiang University</a>;.
 
 profile:
   align: right
   image: prof_pic.jpg
-  image_circular: false # crops the image to make it circular
-  more_info: >
-    <p>555 your office number</p>
-    <p>123 your address street</p>
-    <p>Your City, State 12345</p>
+  image_circular: true # crops the image to make it circular
 
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
@@ -27,8 +23,9 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+I am currently a final-year Master's student in [Cyberspace Security](https://icsr.zju.edu.cn/icsren/) at [Zhejiang University](https://www.zju.edu.cn/english/), advised by Prof. [Zhan Qin](https://person.zju.edu.cn/en/zhanqin). I am also a member of the State Key Laboratory of Blockchain and Data Security. Previously, I received my B.S. degree in [College of Computer Science and Technology](http://www.en.cs.zju.edu.cn/), Zhejiang University in 2023.
 
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
+My research interests lie at the intersection of Large Language Model (LLM) Security and Machine Learning Systems (MLsys). I am particularly interested in identifying and mitigating privacy risks in modern inference systems, with a specific focus on KV-Cache privacy, side-channel analysis, and endogenous security mechanisms.
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+Recently, I have been working on securing LLM inference in untrusted clouds. My work, "Shadow in the Cache," which uncovers novel privacy risks in KV-cache and proposes efficient mitigation strategies, has been accepted (with minor revision) to NDSS 2026. 
+
