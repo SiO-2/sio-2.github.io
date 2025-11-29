@@ -23,8 +23,8 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "news-welcome-to-my-homepage",
-          title: 'Welcome to my homepage!',
+        },{id: "news-our-paper-shadow-in-the-cache-unveiling-and-mitigating-privacy-risks-of-kv-cache-in-llm-inference-has-been-accepted-to-ndss-2026",
+          title: 'Our paper “Shadow in the Cache: Unveiling and Mitigating Privacy Risks of KV-cache...',
           description: "",
           section: "News",},{
         id: 'social-cv',
