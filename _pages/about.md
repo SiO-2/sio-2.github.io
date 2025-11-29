@@ -23,4 +23,4 @@ I am currently a final-year Master's student in [Cyberspace Security](https://ic
 
 My research interests lie at the intersection of Large Language Model (LLM) Security and Machine Learning Systems (MLsys). I am particularly interested in identifying and mitigating privacy risks in modern inference systems, with a specific focus on KV-Cache privacy, side-channel analysis, and endogenous security mechanisms.
 
-Please feel free to reach out via email at luozhifan[AT]zju.edu.cn if you are interested in my research.
+Please feel free to reach out via email at luozf0105[AT]gmail[DOT]com if you are interested in my research.
