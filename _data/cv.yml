@@ -21,15 +21,6 @@
       institution: Zhejiang University, Hangzhou, China
       year: 2019.09 ~ 2023.06
 
-- title: Internships
-  type: time_table
-  contents:
-    - title: Research Intern
-      institution: Huawei 2012 Laboratories
-      year: 2024.09 ~ 2025.08
-      description:
-        - Identified critical KV-cache vulnerabilities and engineered KV-Cloak, a production-adopted defense ensuring lossless accuracy with <1% overhead, resulting in one top-tier publication and patent.
-
 - title: Other Interests
   type: list
   contents:
