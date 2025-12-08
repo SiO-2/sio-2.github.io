@@ -28,15 +28,6 @@
       "score": "3.75/4.00",
     }
   ],
-  "work": [
-    {
-      "name": "Huawei 2012 Laboratories",
-      "position": "Research Intern",
-      "startDate": "2024-09",
-      "endDate": "2025-08",
-      "summary": "Identified critical KV-cache vulnerabilities and engineered KV-Cloak, a production-adopted defense ensuring lossless accuracy with $<$1% overhead, resulting in one top-tier publication and patent.",
-    }
-  ],
   "languages": [
     {
       "language": "Chinese",
