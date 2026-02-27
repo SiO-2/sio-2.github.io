@@ -193,15 +193,17 @@
         </a>
       {% endif %}
       {% if entry.abstract %}
-        <a class="abstract btn btn-sm z-depth-0" role="button" style="display: inline-flex; align-items: center; gap: 4px;">
-          <i class="fas fa-chevron-down" style="font-size: 0.8em;"></i> Abstract
+        <a class="abstract btn btn-sm z-depth-0" role="button" style="padding: 0; border: none; background: transparent;">
+          <img src="https://img.shields.io/badge/Abstract-View-e8e0d3?logo=readthedocs&logoColor=333" alt="Abstract" style="height: 22px;">
         </a>
       {% endif %}
       {% if entry.doi %}
         <a href="https://doi.org/{{ entry.doi }}" class="btn btn-sm z-depth-0" role="button">DOI</a>
       {% endif %}
       {% if entry.arxiv %}
-        <a href="http://arxiv.org/abs/{{ entry.arxiv }}" class="btn btn-sm z-depth-0" role="button">arXiv</a>
+        <a href="http://arxiv.org/abs/{{ entry.arxiv }}" target="_blank" class="btn btn-sm z-depth-0" role="button" style="padding: 0; border: none; background: transparent;">
+          <img src="https://img.shields.io/badge/arXiv-{{ entry.arxiv }}-b31b1b?logo=arxiv&logoColor=white" alt="arXiv" style="height: 22px;">
+        </a>
       {% endif %}
       {% if entry.bibtex_show %}
         <a class="bibtex btn btn-sm z-depth-0" role="button">Bib</a>
@@ -246,11 +248,13 @@
         {% endif %}
       {% endif %}
       {% if entry.website %}
-        <a href="{{ entry.website }}" class="btn btn-sm z-depth-0" role="button">Website</a>
+        <a href="{{ entry.website }}" target="_blank" class="btn btn-sm z-depth-0" role="button" style="padding: 0; border: none; background: transparent;">
+          <img src="https://img.shields.io/badge/Website-Project%20Page-blue?logo=googlechrome&logoColor=white" alt="Website" style="height: 22px;">
+        </a>
       {% endif %}
       {% if entry.github %}
         <a href="https://github.com/{{ entry.github }}" target="_blank" class="btn btn-sm z-depth-0" role="button" style="padding: 0; border: none; background: transparent;">
-          <img src="https://img.shields.io/github/stars/{{ entry.github }}?style=social" alt="GitHub stars" style="height: 22px;">
+          <img src="https://img.shields.io/github/stars/{{ entry.github }}?label=Stars&logo=github&style=flat&color=white&labelColor=333" alt="GitHub stars" style="height: 22px;">
         </a>
       {% endif %}
       {% if entry.google_scholar_id %}
@@ -273,7 +277,7 @@
         {% endif %}
         <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user={{ site.data.socials.scholar_userid }}&citation_for_view={{ site.data.socials.scholar_userid }}:{{ entry.google_scholar_id }}" 
            target="_blank" class="btn btn-sm z-depth-0" role="button" style="padding: 0; border: none; background: transparent;">
-          <img src="https://img.shields.io/badge/scholar-{{ citation_count }}-4285F4?logo=googlescholar&labelColor=beige" 
+          <img src="https://img.shields.io/badge/Citations-{{ citation_count }}-4285F4?logo=googlescholar&logoColor=white&style=flat" 
                alt="{{ citation_count }} Google Scholar citations" style="height: 22px;">
         </a>
       {% endif %}
