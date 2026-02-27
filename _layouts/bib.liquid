@@ -193,7 +193,9 @@
         </a>
       {% endif %}
       {% if entry.abstract %}
-        <a class="abstract btn btn-sm z-depth-0" role="button">Abs</a>
+        <a class="abstract btn btn-sm z-depth-0" role="button" style="display: inline-flex; align-items: center; gap: 4px;">
+          <i class="fas fa-chevron-down" style="font-size: 0.8em;"></i> Abstract
+        </a>
       {% endif %}
       {% if entry.doi %}
         <a href="https://doi.org/{{ entry.doi }}" class="btn btn-sm z-depth-0" role="button">DOI</a>
@@ -252,6 +254,11 @@
       {% endif %}
       {% if entry.website %}
         <a href="{{ entry.website }}" class="btn btn-sm z-depth-0" role="button">Website</a>
+      {% endif %}
+      {% if entry.github %}
+        <a href="https://github.com/{{ entry.github }}" target="_blank" class="btn btn-sm z-depth-0" role="button" style="padding: 0; border: none; background: transparent;">
+          <img src="https://img.shields.io/github/stars/{{ entry.github }}?style=social" alt="GitHub stars" style="height: 22px;">
+        </a>
       {% endif %}
     </div>
     {% if site.enable_publication_badges %}

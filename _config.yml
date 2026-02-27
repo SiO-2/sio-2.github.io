@@ -311,6 +311,7 @@ filtered_bibtex_keywords:
     bibtex_show,
     blog,
     code,
+    github,
     google_scholar_id,
     html,
     inspirehep_id,
