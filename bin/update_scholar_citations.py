@@ -1,132 +1,158 @@
 #!/usr/bin/env python
+"""
+Script to fetch citation counts from Google Scholar and store them in _data/citations.yml
+This script is designed to be run by a GitHub Action.
+"""
 
 import os
-import sys
 import yaml
+import time
+import random
 from datetime import datetime
-from scholarly import scholarly
+from scholarly import scholarly, ProxyGenerator
+
+# Configuration
+SCHOLAR_USER_ID = "BE5IQkwAAAAJ"  # Your Google Scholar ID
+OUTPUT_FILE = "_data/citations.yml"
+MAX_RETRIES = 5
+
+# Create data directory if it doesn't exist
+os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
 
 
-def load_scholar_user_id() -> str:
-    """Load the Google Scholar user ID from the configuration file."""
-    config_file = "_data/socials.yml"
-    if not os.path.exists(config_file):
-        print(
-            f"Configuration file {config_file} not found. Please ensure the file exists and contains your Google Scholar user ID."
-        )
-        sys.exit(1)
-    try:
-        with open(config_file, "r") as f:
-            config = yaml.safe_load(f)
-        scholar_user_id = config.get("scholar_userid")
-        if not scholar_user_id:
-            print(
-                "No 'scholar_userid' found in the configuration file. Please add 'scholar_userid' to _data/socials.yml."
-            )
-            sys.exit(1)
-        return scholar_user_id
-    except yaml.YAMLError as e:
-        print(
-            f"Error parsing YAML file {config_file}: {e}. Please check the file for correct YAML syntax."
-        )
-        sys.exit(1)
-
-
-SCHOLAR_USER_ID: str = load_scholar_user_id()
-OUTPUT_FILE: str = "_data/citations.yml"
-
-
-def get_scholar_citations() -> None:
-    """Fetch and update Google Scholar citation data."""
+def get_scholar_citations():
+    """
+    Fetch citation data from Google Scholar for all papers by the specified author
+    """
     print(f"Fetching citations for Google Scholar ID: {SCHOLAR_USER_ID}")
-    today = datetime.now().strftime("%Y-%m-%d")
 
-    # Check if the output file was already updated today
+    # Initialize citation data structure
+    citation_data = {
+        "metadata": {"last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S")},
+        "author": {},
+        "papers": {},  # Initialize as empty dict, not None
+    }
+
+    # Try to load existing data first to avoid unnecessary requests
     if os.path.exists(OUTPUT_FILE):
         try:
             with open(OUTPUT_FILE, "r") as f:
                 existing_data = yaml.safe_load(f)
-            if (
-                existing_data
-                and "metadata" in existing_data
-                and "last_updated" in existing_data["metadata"]
-            ):
-                print(f"Last updated on: {existing_data['metadata']['last_updated']}")
-                if existing_data["metadata"]["last_updated"] == today:
-                    print("Citations data is already up-to-date. Skipping fetch.")
-                    return
+                if existing_data and isinstance(existing_data, dict):
+                    # Keep existing metadata if available
+                    if (
+                        "author" in existing_data
+                        and existing_data["author"] is not None
+                    ):
+                        citation_data["author"] = existing_data["author"]
+                    if (
+                        "papers" in existing_data
+                        and existing_data["papers"] is not None
+                    ):
+                        citation_data["papers"] = existing_data["papers"]
         except Exception as e:
-            print(
-                f"Warning: Could not read existing citation data from {OUTPUT_FILE}: {e}. The file may be missing or corrupted."
-            )
+            print(f"Warning: Could not read existing citation data: {e}")
 
-    citation_data = {"metadata": {"last_updated": today}, "papers": {}}
+    # Check for proxy settings
+    http_proxy = os.environ.get("HTTP_PROXY") or os.environ.get("http_proxy")
+    https_proxy = os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy")
 
-    scholarly.set_timeout(15)
-    scholarly.set_retries(3)
-    try:
-        author = scholarly.search_author_id(SCHOLAR_USER_ID)
-        author_data = scholarly.fill(author)
-    except Exception as e:
-        print(
-            f"Error fetching author data from Google Scholar for user ID '{SCHOLAR_USER_ID}': {e}. Please check your internet connection and Scholar user ID."
-        )
-        sys.exit(1)
+    # Fetch author data with retries
+    author_data = None
+    for attempt in range(MAX_RETRIES):
+        try:
+            # Setup proxy
+            if http_proxy or https_proxy:
+                print(f"Using system proxy: {http_proxy or https_proxy}")
+                # scholarly will automatically use HTTP_PROXY/HTTPS_PROXY environment variables
+            else:
+                print("Attempting to use free proxies...")
+                try:
+                    pg = ProxyGenerator()
+                    pg.FreeProxies()
+                    scholarly.use_proxy(pg)
+                except Exception as proxy_error:
+                    print(f"FreeProxies failed: {proxy_error}")
+                    print("Attempting direct connection...")
+
+            scholarly.set_timeout(30)
+            author = scholarly.search_author_id(SCHOLAR_USER_ID)
+            author_data = scholarly.fill(author)
+            break
+        except Exception as e:
+            wait_time = (2**attempt) + random.uniform(0, 1)  # Exponential backoff
+            print(f"Attempt {attempt + 1}/{MAX_RETRIES} failed: {e}")
+            if attempt < MAX_RETRIES - 1:
+                print(f"Retrying in {wait_time:.1f} seconds...")
+                time.sleep(wait_time)
+            else:
+                print("All retries failed. Using existing data if available.")
+                return citation_data
 
     if not author_data:
-        print(
-            f"Could not fetch author data for user ID '{SCHOLAR_USER_ID}'. Please verify the Scholar user ID and try again."
-        )
-        sys.exit(1)
+        print("Could not fetch author data")
+        return citation_data
 
-    if "publications" not in author_data:
-        print(f"No publications found in author data for user ID '{SCHOLAR_USER_ID}'.")
-        sys.exit(1)
+    if "name" in author_data:
+        citation_data["author"]["name"] = author_data["name"]
+    if "citedby" in author_data:
+        citation_data["author"]["citedby"] = author_data["citedby"]
 
-    for pub in author_data["publications"]:
-        try:
-            pub_id = pub.get("pub_id") or pub.get("author_pub_id")
-            if not pub_id:
-                print(
-                    f"Warning: No ID found for publication: {pub.get('bib', {}).get('title', 'Unknown')}. This publication will be skipped."
-                )
-                continue
+    # Process publications
+    if "publications" in author_data:
+        for pub in author_data["publications"]:
+            try:
+                # Get publication ID
+                pub_id = None
+                if "pub_id" in pub and pub["pub_id"]:
+                    pub_id = pub["pub_id"]
+                elif "author_pub_id" in pub and pub["author_pub_id"]:
+                    pub_id = pub["author_pub_id"]
 
-            title = pub.get("bib", {}).get("title", "Unknown Title")
-            year = pub.get("bib", {}).get("pub_year", "Unknown Year")
-            citations = pub.get("num_citations", 0)
+                if not pub_id:
+                    print(
+                        f"Warning: No ID found for publication: {pub.get('bib', {}).get('title', 'Unknown')}"
+                    )
+                    continue
 
-            print(f"Found: {title} ({year}) - Citations: {citations}")
+                # Get publication metadata
+                title = "Unknown Title"
+                year = "Unknown Year"
+                citations = 0
 
-            citation_data["papers"][pub_id] = {
-                "title": title,
-                "year": year,
-                "citations": citations,
-            }
-        except Exception as e:
-            print(
-                f"Error processing publication '{pub.get('bib', {}).get('title', 'Unknown')}': {e}. This publication will be skipped."
-            )
+                if "bib" in pub:
+                    if "title" in pub["bib"]:
+                        title = pub["bib"]["title"]
+                    if "pub_year" in pub["bib"]:
+                        year = pub["bib"]["pub_year"]
 
-    # Compare new data with existing data
-    if existing_data and existing_data.get("papers") == citation_data["papers"]:
-        print("No changes in citation data. Skipping file update.")
-        return
+                if "num_citations" in pub:
+                    citations = pub["num_citations"]
 
-    try:
-        with open(OUTPUT_FILE, "w") as f:
-            yaml.dump(citation_data, f, width=1000, sort_keys=True)
-        print(f"Citation data saved to {OUTPUT_FILE}")
-    except Exception as e:
-        print(
-            f"Error writing citation data to {OUTPUT_FILE}: {e}. Please check file permissions and disk space."
-        )
-        sys.exit(1)
+                print(f"Found: {title} ({year}) - Citations: {citations}")
+
+                # Store citation data
+                citation_data["papers"][pub_id] = {
+                    "title": title,
+                    "year": year,
+                    "citations": citations,
+                }
+
+            except Exception as e:
+                print(f"Error processing publication: {str(e)}")
+    else:
+        print("No publications found in author data")
+
+    return citation_data
 
 
 if __name__ == "__main__":
+    citation_data = get_scholar_citations()
+
+    # Save to YAML file
     try:
-        get_scholar_citations()
+        with open(OUTPUT_FILE, "w") as f:
+            yaml.dump(citation_data, f, default_flow_style=False, sort_keys=False)
+        print(f"Citation data saved to {OUTPUT_FILE}")
     except Exception as e:
-        print(f"Unexpected error: {e}")
-        sys.exit(1)
+        print(f"Error saving citation data: {str(e)}")
