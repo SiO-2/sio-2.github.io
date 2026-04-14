@@ -56,6 +56,16 @@ def get_scholar_citations():
     # Check for proxy settings
     http_proxy = os.environ.get("HTTP_PROXY") or os.environ.get("http_proxy")
     https_proxy = os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy")
+    skip_proxy = os.environ.get("SKIP_PROXY", "false").lower() == "true"
+    is_ci = os.environ.get("CI", "false").lower() == "true"
+
+    # Check if proxy is available in CI environment
+    if is_ci and not http_proxy and not skip_proxy:
+        print("⚠️  WARNING: Running in CI environment without HTTP_PROXY/HTTPS_PROXY.")
+        print("   Please set HTTP_PROXY secret in GitHub repository settings.")
+        print("   Or set SKIP_PROXY=true to skip citation updates in CI.")
+        print("   Using existing data if available.")
+        return citation_data
 
     # Fetch author data with retries
     author_data = None
@@ -65,6 +75,8 @@ def get_scholar_citations():
             if http_proxy or https_proxy:
                 print(f"Using system proxy: {http_proxy or https_proxy}")
                 # scholarly will automatically use HTTP_PROXY/HTTPS_PROXY environment variables
+            elif skip_proxy:
+                print("SKIP_PROXY is set, attempting direct connection...")
             else:
                 print("Attempting to use free proxies...")
                 try:
