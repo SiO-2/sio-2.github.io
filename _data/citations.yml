@@ -1,11 +1,11 @@
 metadata:
-  last_updated: '2026-04-14 09:30:32'
+  last_updated: '2026-04-28 12:29:00'
 author:
   name: Zhifan Luo
-  citedby: 8
+  citedby: 10
 papers:
   BE5IQkwAAAAJ:u5HHmVD_uO8C:
     title: 'Shadow in the cache: Unveiling and mitigating privacy risks of kv-cache
       in llm inference'
     year: '2025'
-    citations: 8
+    citations: 10
