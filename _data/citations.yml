@@ -8,4 +8,4 @@ papers:
     title: 'Shadow in the cache: Unveiling and mitigating privacy risks of kv-cache
       in llm inference'
     year: '2025'
-    citations: 14
+    citations: 16
