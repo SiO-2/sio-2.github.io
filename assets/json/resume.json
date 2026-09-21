@@ -1,28 +1,39 @@
 {
   "basics": {
     "name": "Zhifan Luo (罗志凡)",
-    "label": "CS Master Student",
+    "label": "Ph.D. Student at The University of Hong Kong",
     "email": "luozf0105@gmail.com",
     "url": "https://sio-2.github.io",
-    "summary": "An researcher interested in AI Security & Privacy and MLsys."
+    "summary": "A researcher interested in LLM security and machine learning systems."
   },
   "education": [
     {
-      "institution": "Zhejiang University",
-      "location": "Hangzhou, China",
-      "url": "https://www.zju.edu.cn/english/",
-      "area": "Computer Science and Technology",
-      "studyType": "Master",
-      "startDate": "2023-09-01",
-      "endDate": "2026-06-30",
-      "score": "3.91/4.00"
+      "institution": "The University of Hong Kong",
+      "location": "Hong Kong SAR",
+      "url": "https://www.hku.hk/",
+      "area": "Data and Systems Engineering",
+      "studyType": "Ph.D.",
+      "startDate": "2026-09-01",
+      "endDate": "",
+      "courses": ["Advisor: Prof. Shinan Liu"]
     },
     {
       "institution": "Zhejiang University",
       "location": "Hangzhou, China",
       "url": "https://www.zju.edu.cn/english/",
-      "area": "Computer Science and Technology",
-      "studyType": "Bachelor",
+      "area": "Cyberspace Security",
+      "studyType": "M.S.",
+      "startDate": "2023-09-01",
+      "endDate": "2026-06-30",
+      "score": "3.91/4.00",
+      "courses": ["Advisor: Prof. Zhan Qin"]
+    },
+    {
+      "institution": "Zhejiang University",
+      "location": "Hangzhou, China",
+      "url": "https://www.zju.edu.cn/english/",
+      "area": "Information Security",
+      "studyType": "B.S.",
       "startDate": "2019-09-01",
       "endDate": "2023-06-30",
       "score": "3.75/4.00"
@@ -42,9 +53,9 @@
   ],
   "interests": [
     {
-      "name": "Basketball",
-      "icon": "fa-solid fa-tag",
-      "keywords": ["Teamwork", "Strategy", "Fitness"]
+      "name": "Sports & Outdoors",
+      "icon": "fa-solid fa-person-hiking",
+      "keywords": ["Swimming", "Hiking", "Basketball"]
     }
   ]
 }
