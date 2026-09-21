@@ -13,11 +13,15 @@
 - title: Education
   type: time_table
   contents:
-    - title: Master
+    - title: Ph.D. in Data and Systems Engineering
+      institution: The University of Hong Kong, Hong Kong SAR
+      year: 2026.09 ~ Present
+
+    - title: M.S. in Cyberspace Security
       institution: Zhejiang University, Hangzhou, China
       year: 2023.09 ~ 2026.06
 
-    - title: Undergraduate
+    - title: B.S. in Information Security
       institution: Zhejiang University, Hangzhou, China
       year: 2019.09 ~ 2023.06
 
