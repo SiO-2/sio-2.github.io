@@ -33,6 +33,9 @@ ninja.data = [{
         },{id: "news-our-paper-shadow-in-the-cache-unveiling-and-mitigating-privacy-risks-of-kv-cache-in-llm-inference-has-been-accepted-to-ndss-2026",
           title: 'Our paper “Shadow in the Cache: Unveiling and Mitigating Privacy Risks of KV-cache...',
           description: "",
+          section: "News",},{id: "news-i-have-started-my-ph-d-journey-at-the-university-of-hong-kong-advised-by-prof-shinan-liu",
+          title: 'I have started my Ph.D. journey at The University of Hong Kong, advised...',
+          description: "",
           section: "News",},{
         id: 'social-cv',
         title: 'CV',
